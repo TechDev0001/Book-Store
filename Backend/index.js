@@ -13,19 +13,18 @@ app.use(express.json());
 
 dotenv.config();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8080;
 const URI = process.env.MongoDBURI;
 
 // connect to mongoDB
-try {
-    mongoose.connect(URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
-    console.log("Connected to mongoDB");
-} catch (error) {
+
+    mongoose.connect(URI)
+    .then(()=>{
+        
+        console.log("Connected to mongoDB");
+    }).catch ((error)=> {
     console.log("Error: ", error);
-}
+})
 
 // defining routes
 app.use("/book", bookRoute);
